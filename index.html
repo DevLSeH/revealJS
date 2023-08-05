@@ -16,8 +16,56 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section data-background-color = rgb(130,235,255)>
+                    <section>
+                        <style>
+                            .filter {
+                                filter:drop-shadow(20px 50px 16px rgb(72, 72, 72));
+                            }
+                        </style>
+                        <h1 class="filter" style="font-size: 250px; color:rgb(255,0,255);">hi</h1>
+                    </section>
+                    <section data-transition= "concave" data-transition-speed="fast">
+                        <ol>
+                            <li>my name is</li>
+                        </ol>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>shaan</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <img class = r-frame src = "./matchTest1.png" height = 500>
+                    </section>
+                </section>
+                <section data-background-image = "./matchTest3.png"></section>
+                <section>
+                    <iframe width = 850 height = 500 data-src = "https://revealjs.com/media/" data-preload></iframe>
+                </section>
+				<section data-markdown>
+                    <textarea data-template>
+                        ## markdown
+                        hi this slide made by markdown
+                        ---
+                        ## new page
+                        page 2
+                        ---
+                        ## codes
+                        ``` python [10: 1-5]
+                        import re
+                        import json
+
+                        def test_func():
+                            pass
+                        # ---
+                        test_func()
+                        def do_something():
+                            a = 1
+                            print(a)
+                        ```
+                    </textarea>
+                </section>
 			</div>
 		</div>
 
@@ -30,6 +78,7 @@
 			// - https://revealjs.com/initialization/
 			// - https://revealjs.com/config/
 			Reveal.initialize({
+                slideNumber:true,
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
