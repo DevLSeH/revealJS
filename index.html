@@ -16,55 +16,99 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-background-color = rgb(130,235,255)>
+				<section data-background-color="rgb(130,180,250)">
+                    <h2>음악 정보 수집</h1>
+                    <ol>
+                        <li>음악 정보 수집 대상 사이트</li>
+                        <li>수집 대상 주소</li>
+                        <li>수집 정보</li>
+                        <li>수집 방식</li>
+                        <li>저장</li>
+                    </ol>
+                </section>
+                <section>
                     <section>
-                        <style>
-                            .filter {
-                                filter:drop-shadow(20px 50px 16px rgb(72, 72, 72));
-                            }
-                        </style>
-                        <h1 class="filter" style="font-size: 250px; color:rgb(255,0,255);">hi</h1>
-                    </section>
-                    <section data-transition= "concave" data-transition-speed="fast">
-                        <ol>
-                            <li>my name is</li>
-                        </ol>
+                        <h2>음악 정보 수집 대상 사이트</h2>
                     </section>
                     <section>
                         <ul>
-                            <li>shaan</li>
+                            <li>melon</li>
+                            <ul>
+                                <li>최신 곡 리스트를 불러오는 별도 url 존재,<br>open api 없음</li>
+                            </ul>
+                            <li>ginie</li>
+                                <ul>
+                                    <li>open api 없음</li>
+                                </ul>
+                            <li>flo</li>
+                                <ul>
+                                    <li>open api 없음</li>
+                                </ul>
+                            <li>youtube music</li>
+                                <ul>
+                                    <li>youtube premium 가입 후 요청 가능</li>
+                                </ul>
                         </ul>
                     </section>
+                </section>
+                <section>
                     <section>
-                        <img class = r-frame src = "./matchTest1.png" height = 500>
+                        수집 대상 주소
+                    </section>
+                    <section>
+                        melon
+                        <pre><code data-trim data-line-numbers>
+                            https://www.melon.com/new/
+                            listPaging.htm?startIndex=1&
+                            pageSize=50&areaFlg=I&orderBy=
+                            
+                            # startIndex 표시할 데이터의 첫 번호
+                            # pageSize 한 페이지에 표시할 데이터의 수 (변경해도 변화 없음)
+                        </code></pre>
                     </section>
                 </section>
-                <section data-background-image = "./matchTest3.png"></section>
                 <section>
-                    <iframe width = 850 height = 500 data-src = "https://revealjs.com/media/" data-preload></iframe>
+                    <section>수집 정보</section>
+                    <section>
+                        <ul>
+                            <li>앨범 이름</li>
+                            <li>앨범 커버 이미지</li>
+                            <li>가수 이름</li>
+                            <li>곡 제목</li>
+                            <li>사이트 hostname(source)</li>
+                            <li>현재 데이터에서의 랭킹(데이터 순서)</li>
+                        </ul>
+                    </section>
                 </section>
-				<section data-markdown>
-                    <textarea data-template>
-                        ## markdown
-                        hi this slide made by markdown
-                        ---
-                        ## new page
-                        page 2
-                        ---
-                        ## codes
-                        ``` python [10: 1-5]
-                        import re
-                        import json
-
-                        def test_func():
-                            pass
-                        # ---
-                        test_func()
-                        def do_something():
-                            a = 1
-                            print(a)
-                        ```
-                    </textarea>
+                <section>
+                    <section>수집 방식</section>
+                    <section>scrapy 를 이용한 세부 페이지 크롤링</section>
+                    <section>
+                        각 정보 별 xpath
+                        <ul>
+                            <li>앨범 이름 : [//div[contains(@class,’rank03’)]//a/text()]</li>
+                            <li>앨범 이미지 : [//img/@src]</li>
+                            <li>가수 이름 : [//div[contains(@class,’rank02’)]//a/text()]</li>
+                            <li>곡 이름 : [//div[contains(@class,’rank01’)]//a/text()]</li>
+                            <li>hostname : [urllib.parse.urlparse(response.url).hostname]</li>
+                            <li>랭킹 : [//div/span[contains(@class,'rank ')]/text()]</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>저장</section>
+                    <section>
+                        api 호출을 이용한 mongodb 저장
+                        <pre><code data-trim data-line-numbers>
+                            req_client.post(
+                                "/api/v1/contents/images",
+                                data=data,
+                                files={"file": music_item["album_image"]},
+                            )
+                            # data : 크롤링한 모든 정보
+                            # files : 이미지 바이트 데이터
+                        </code></pre>
+                    </section>
                 </section>
 			</div>
 		</div>
